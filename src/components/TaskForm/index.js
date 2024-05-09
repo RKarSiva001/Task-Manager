@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
-// import {format} from 'date-fns'
+import {format} from 'date-fns'
 import TaskItem from '../TaskItem'
 
 import './index.css'
@@ -28,8 +28,8 @@ class TaskForm extends Component {
     tasksList: initialTasksList,
     title: '',
     description: '',
-    // priority: '',
-    // dueDate: '',
+    priority: '',
+    dueDate: '',
   }
 
   toggleInCompleted = id => {
@@ -68,6 +68,14 @@ class TaskForm extends Component {
     this.setState({title: event.target.value})
   }
 
+  onChangePriority = event => {
+    this.setState({priority: event.target.value})
+  }
+
+  onChangeDueDate = event => {
+    this.setState({dueDate: event.target.value})
+  }
+
   render() {
     const {title, description, tasksList} = this.state
     return (
@@ -87,17 +95,23 @@ class TaskForm extends Component {
               onChange={this.onChangeDescription}
               placeholder="Description"
             />
+            <input
+              className="input"
+              value={priority}
+              onChange={this.onChangePriority}
+              placeholder="Priority"
+            />
+            <input
+              className="input"
+              value={dueDate}
+              onChange={this.onChangeDueDate}
+              placeholder="Due Date"
+            />
             <button type="submit" className="button">
               Add Task
             </button>
           </form>
-          <ul className="tasks-table">
-            <li className="table-header">
-              <p className="table-header-cell name-column">Title</p>
-              <hr className="separator" />
-              <p className="table-header-cell description-column">Description</p>
-            </li>
-
+          <ul>
             {tasksList.map(eachTask => (
               <TaskItem
                 key={eachTask.id}
