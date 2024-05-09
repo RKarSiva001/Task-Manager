@@ -1,25 +1,25 @@
 import './index.css'
 
-const ContactItem = props => {
-  const {contactDetails, toggleIsFavorite} = props
-  const {name, mobileNo, isFavorite, id} = contactDetails
+const TaskItem = props => {
+  const {taskDetails, toggleInCompleted} = props
+  const {id, title, description, inCompleted} = taskDetails
 
-  const starImgUrl = isFavorite
+  const starImgUrl = inCompleted
     ? 'https://assets.ccbp.in/frontend/react-js/star-filled-img.png'
     : 'https://assets.ccbp.in/frontend/react-js/star-outline-img.png'
 
   const onClickFavoriteIcon = () => {
-    toggleIsFavorite(id)
+    toggleInCompleted(id)
   }
 
   return (
     <li className="table-row">
       <div className="table-cell name-column">
-        <p>{name}</p>
+        <p>{title}</p>
       </div>
       <hr className="separator" />
       <div className="table-cell mobile-no-column">
-        <p className="mobile-no-value">{mobileNo}</p>
+        <p className="mobile-no-value">{description}</p>
         <button
           type="button"
           className="favorite-icon-container"
@@ -32,4 +32,4 @@ const ContactItem = props => {
   )
 }
 
-export default ContactItem
+export default TaskItem

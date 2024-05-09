@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
-
+// import {format} from 'date-fns'
 import TaskItem from '../TaskItem'
 
 import './index.css'
@@ -8,61 +8,60 @@ import './index.css'
 const initialTasksList = [
   {
     id: uuidv4(),
-    title: 'Ram',
-    mobileNo: 9999988888,
-    isFavorite: false,
+    title: 'Final Semester Project',
+    description:
+      'A final semester project is a culmination of a student academic journey, typically undertaken in the last semester of their program',
+    dueDate: '',
+    inCompleted: false,
   },
   {
     id: uuidv4(),
-    title: 'Pavan',
-    mobileNo: 8888866666,
-    isFavorite: true,
-  },
-  {
-    id: uuidv4(),
-    title: 'Nikhil',
-    mobileNo: 9999955555,
-    isFavorite: false,
+    title: 'Assignment',
+    description:
+      'An assignment is a task or project given to students by their instructors to assess their understanding of course material, develop critical thinking skills, and demonstrate their ability to apply concepts learned in class.',
+    inCompleted: false,
   },
 ]
 
-class App extends Component {
+class TaskForm extends Component {
   state = {
-    contactsList: initialTasksList,
+    tasksList: initialTasksList,
     title: '',
-    mobileNo: '',
+    description: '',
+    // priority: '',
+    // dueDate: '',
   }
 
-  toggleIsFavorite = id => {
+  toggleInCompleted = id => {
     this.setState(prevState => ({
-      contactsList: prevState.contactsList.map(eachContact => {
-        if (id === eachContact.id) {
-          return {...eachContact, isFavorite: !eachContact.isFavorite}
+      tasksList: prevState.tasksList.map(eachTask => {
+        if (id === eachTask.id) {
+          return {...eachTask, inCompleted: !eachTask.inCompleted}
         }
-        return eachContact
+        return eachTask
       }),
     }))
   }
 
-  onAddContact = event => {
+  onAddTask = event => {
     event.preventDefault()
-    const {title, mobileNo} = this.state
-    const newContact = {
+    const {title, description} = this.state
+    const newTask = {
       id: uuidv4(),
       title,
-      mobileNo,
-      isFavorite: false,
+      description,
+      inCompleted: false,
     }
 
     this.setState(prevState => ({
-      contactsList: [...prevState.contactsList, newContact],
+      tasksList: [...prevState.tasksList, newTask],
       title: '',
-      mobileNo: '',
+      description: '',
     }))
   }
 
-  onChangeMobileNo = event => {
-    this.setState({mobileNo: event.target.value})
+  onChangeDescription = event => {
+    this.setState({description: event.target.value})
   }
 
   onChangeTitle = event => {
@@ -70,12 +69,12 @@ class App extends Component {
   }
 
   render() {
-    const {title, mobileNo, contactsList} = this.state
+    const {title, description, tasksList} = this.state
     return (
       <div className="app-container">
         <div className="responsive-container">
-          <h1 className="heading">Contacts</h1>
-          <form className="contact-form-container" onSubmit={this.onAddContact}>
+          <h1 className="heading">My Tasks</h1>
+          <form className="task-form-container" onSubmit={this.onAddTask}>
             <input
               value={title}
               onChange={this.onChangeTitle}
@@ -84,25 +83,26 @@ class App extends Component {
             />
             <input
               className="input"
-              value={mobileNo}
-              onChange={this.onChangeMobileNo}
-              placeholder="Mobile Number"
+              value={description}
+              onChange={this.onChangeDescription}
+              placeholder="Description"
             />
             <button type="submit" className="button">
-              Add Contact
+              Add Task
             </button>
           </form>
-          <ul className="contacts-table">
+          <ul className="tasks-table">
             <li className="table-header">
               <p className="table-header-cell name-column">Title</p>
               <hr className="separator" />
-              <p className="table-header-cell">Mobile Number</p>
+              <p className="table-header-cell description-column">Description</p>
             </li>
-            {contactsList.map(eachContact => (
-              <ContactItem
-                key={eachContact.id}
-                contactDetails={eachContact}
-                toggleIsFavorite={this.toggleIsFavorite}
+
+            {tasksList.map(eachTask => (
+              <TaskItem
+                key={eachTask.id}
+                taskDetails={eachTask}
+                toggleInCompleted={this.toggleInCompleted}
               />
             ))}
           </ul>
@@ -112,4 +112,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default TaskForm
