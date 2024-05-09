@@ -13,13 +13,8 @@ const TaskItem = props => {
   }
 
   return (
-    <li className="table-row">
-      <div className="table-cell name-column">
-        <p>{title}</p>
-      </div>
-      <hr className="separator" />
-      <div className="table-cell mobile-no-column">
-        <p className="mobile-no-value">{description}</p>
+    <li className="taskItem">
+      <div>
         <button
           type="button"
           className="favorite-icon-container"
@@ -27,6 +22,10 @@ const TaskItem = props => {
         >
           <img src={starImgUrl} className="favorite-icon" alt="star" />
         </button>
+      </div>
+      <div>
+        <h1 className="title">Title: {title}</h1>
+        <p className="description">Description: {description}</p>
       </div>
     </li>
   )
