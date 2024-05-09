@@ -23,17 +23,62 @@
   align-items: center;
 }
 
-.favorite-icon-container {
+.priority {
+  color: #1e293b;
+  font-family: 'Roboto';
+  font-size: 16px;
+  margin-left: 32px;
+  align-items: center;
+}
+
+.dueDate {
+  color: #1e293b;
+  font-family: 'Roboto';
+  font-size: 16px;
+  margin-left: 32px;
+  align-items: center;
+}
+
+.check-box-container {
   background: transparent;
   outline: none;
   border: none;
   cursor: pointer;
 }
 
-.favorite-icon {
-  background: transparent;
-  margin-right: 24px;
-  align-self: center;
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-button {
+  background-color: #36db52;
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 14px;
+  border-radius: 6px;
   border: none;
+  padding-left: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 24px;
   outline: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  background-color: #e43517;
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  padding-left: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 24px;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 10px;
 }

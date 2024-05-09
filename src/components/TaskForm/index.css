@@ -3,14 +3,15 @@
 }
 
 .app-container {
-  display: flex;
-  justify-content: center;
   min-height: 100vh;
+  min-width: 90%;
+  padding: 20px;
 }
 
 .responsive-container {
-  width: 80%;
-  max-width: 1140px;
+  min-width: 80%;
+  margin: auto;
+  display: flex;
 }
 
 .heading {
@@ -22,12 +23,12 @@
   margin-bottom: 32px;
 }
 
-.contact-form-container {
-  display: flex;
+.task-form-container {
+  min-width: 400px;
 }
 
 @media screen and (max-width: 575px) {
-  .contact-form-container {
+  .task-form-container {
     flex-direction: column;
   }
 }
@@ -44,7 +45,7 @@
   outline: none;
   margin-bottom: 10px;
   flex-grow: 1;
-  max-width: 320px;
+  width: 100%;
 }
 
 @media screen and (max-width: 575px) {
@@ -75,37 +76,10 @@
   }
 }
 
-.contacts-table {
-  padding-left: 0;
-  margin-top: 48px;
+.tasks-container {
+  width: 35%;
 }
 
-.table-header {
-  display: flex;
-  background-color: #f1f5f9;
-  list-style-type: none;
-  border: 1px solid #cbd5e1;
-}
-
-.table-header-cell {
-  color: #334155;
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-  margin-left: 32px;
-}
-
-.name-column {
-  width: 30%;
-  border-right: none;
-}
-
-.separator {
-  margin: 0;
-  border: 1px solid #cbd5e1;
-}
-
-.description-column{
-    width: 70%;
-    border-right: none;
+.tasks-container {
+  width: 65%;
 }

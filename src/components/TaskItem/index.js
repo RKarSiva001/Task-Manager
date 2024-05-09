@@ -1,15 +1,19 @@
 import './index.css'
 
 const TaskItem = props => {
-  const {taskDetails, toggleInCompleted} = props
-  const {id, title, description, inCompleted} = taskDetails
+  const {taskDetails, editTask, deleteTask, toggleInCompleted} = props
+  const {id, title, description, priority, dueDate, inCompleted} = taskDetails
 
-  const starImgUrl = inCompleted
-    ? 'https://assets.ccbp.in/frontend/react-js/star-filled-img.png'
-    : 'https://assets.ccbp.in/frontend/react-js/star-outline-img.png'
-
-  const onClickFavoriteIcon = () => {
+  const onClickInCompleted = () => {
     toggleInCompleted(id)
+  }
+
+  const onEdit = () => {
+    editTask(id)
+  }
+
+  const onDelete = () => {
+    deleteTask(id)
   }
 
   return (
@@ -17,15 +21,27 @@ const TaskItem = props => {
       <div>
         <button
           type="button"
-          className="favorite-icon-container"
-          onClick={onClickFavoriteIcon}
+          className="check-box-container"
+          onClick={onClickInCompleted}
         >
-          <img src={starImgUrl} className="favorite-icon" alt="star" />
+          <input type="checkbox" id="isCompleted" value={inCompleted} />
+          <br />
+          <label htmlFor="isCompleted"> Is Completed</label>
         </button>
       </div>
       <div>
         <h1 className="title">Title: {title}</h1>
         <p className="description">Description: {description}</p>
+        <p className="priority">Priority: {priority}</p>
+        <p className="dueDate">Due Date: {dueDate}</p>
+        <div className="button-container">
+          <button type="button" className="edit-button" onClick={onEdit}>
+            Edit
+          </button>
+          <button type="button" className="delete-button" onClick={onDelete}>
+            Delete
+          </button>
+        </div>
       </div>
     </li>
   )
