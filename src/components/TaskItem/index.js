@@ -2,7 +2,7 @@ import './index.css'
 
 const TaskItem = props => {
   const {taskDetails, editTask, deleteTask, toggleInCompleted} = props
-  const {id, title, description, priority, dueDate, inCompleted} = taskDetails
+  const {id, title, priority, dueDate, inCompleted} = taskDetails
 
   const onClickInCompleted = () => {
     toggleInCompleted(id)
@@ -31,7 +31,6 @@ const TaskItem = props => {
       </div>
       <div>
         <h1 className="title">Title: {title}</h1>
-        <p className="description">Description: {description}</p>
         <p className="priority">Priority: {priority}</p>
         <p className="dueDate">Due Date: {dueDate}</p>
         <div className="button-container">

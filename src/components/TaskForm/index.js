@@ -232,27 +232,6 @@ class TaskForm extends Component {
                     />
                   ))}
             </ul>
-            <ul>
-              {pendingTasks
-                ? filterPendingTasks.map(eachTask => (
-                    <TaskItem
-                      key={eachTask.id}
-                      taskDetails={eachTask}
-                      editTask={this.editTask}
-                      deleteTask={this.deleteTask}
-                      toggleInCompleted={this.toggleInCompleted}
-                    />
-                  ))
-                : tasksList.map(eachTask => (
-                    <TaskItem
-                      key={eachTask.id}
-                      taskDetails={eachTask}
-                      editTask={this.editTask}
-                      deleteTask={this.deleteTask}
-                      toggleInCompleted={this.toggleInCompleted}
-                    />
-                  ))}
-            </ul>
           </div>
         </div>
       </div>
