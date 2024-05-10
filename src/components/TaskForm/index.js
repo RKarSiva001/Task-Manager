@@ -23,26 +23,14 @@ const initialTasksList = [
   },
 ]
 
-// const initialStatusList = [
-//   {
-//     name: 'Completed',
-//     id: '1',
-//   },
-//   {
-//     name: 'Pending',
-//     id: '2',
-//   },
-// ]
-
 class TaskForm extends Component {
   state = {
     tasksList: initialTasksList,
-    // statusOptions: initialStatusList,
-    // activeStatusId: '',
     title: '',
     description: '',
     priority: '',
     dueDate: '',
+    completedTasks: false,
   }
 
   toggleInCompleted = id => {
@@ -97,8 +85,6 @@ class TaskForm extends Component {
     const {tasksList} = this.state
 
     const findTaskToBeEdited = tasksList.find(eachTask => eachTask.id === id)
-
-    console.log(findTaskToBeEdited)
     this.setState({
       title: findTaskToBeEdited.title,
       description: findTaskToBeEdited.description,
@@ -117,35 +103,26 @@ class TaskForm extends Component {
     this.setState({tasksList: filteredTasksList})
   }
 
-  //   changeStatus = activeStatusId => {
-  //     this.setState({activeStatusId})
-  //   }
+  onToggleCompletedTasks = () => {
+    const {completedTasks} = this.state
 
-  //   renderStatusList = () => {
-  //     const {statusOptions} = this.state
+    this.setState(
+      prevState => ({completedTasks: !prevState.completedTasks}, this.getCompletedTasks)
+    )
+  }
 
-  //     return statusOptions.map(status => {
-  //       const {activeStatusId} = this.state
-  //       const onClickStatusItem = () => this.changeStatus(status.id)
-  //       const isActive = status.id === activeStatusId
-  //       const statusClassName = isActive
-  //         ? `status-name active-status-name`
-  //         : `status-name`
+  getCompletedTasks = () => {
+    const {tasksList} = this.state
 
-  //       return (
-  //         <li className="status-item" key={status.id} onClick={onClickStatusItem}>
-  //           <p className={statusClassName}>{status.name}</p>
-  //         </li>
-  //       )
-  //     })
-  //   }
-
-  //   renderTaskCompletion = () => (
-  //     <>
-  //       <h1 className="status-heading">Task Completion Status</h1>
-  //       <ul className="status-list">{this.renderStatusList()}</ul>
-  //     </>
-  //   )
+    if (completedTasks) {
+      const filterCompletedTasks = tasksList.filter(
+        eachTask => eachTask.inCompleted === true,
+      )
+      this.setState({tasksList: filterCompletedTasks})
+    } else {
+      this.setState({tasksList})
+    }
+  }
 
   render() {
     const {title, description, priority, dueDate, tasksList} = this.state
@@ -188,7 +165,20 @@ class TaskForm extends Component {
                 Add Task
               </button>
             </form>
-            {/* {this.renderTaskCompletion()} */}
+            <div className="filter-container">
+              <ul className="filter-list">
+                <li className="filter-list-item">
+                  <button type="button completed-button" onClick={this.onToggleCompletedTasks} className="button">
+                    Completed Tasks
+                  </button>
+                </li>
+                <li className="filter-list-item">
+                  <button type="button pending-button" onClick={this.onTogglePendingTasks} className="button">
+                    Pending Tasks
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="tasks-container">
             <ul>
