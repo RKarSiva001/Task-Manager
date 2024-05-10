@@ -70,6 +70,18 @@
   margin-bottom: 10px;
 }
 
+.completed-button{
+    background-color: #dac825;
+}
+
+.pending-button{
+    background-color: #ed56a3;
+}
+
+.filter-list{
+    list-style-type: none;
+}
+
 @media screen and (max-width: 575px) {
   .button {
     width: 200px;
