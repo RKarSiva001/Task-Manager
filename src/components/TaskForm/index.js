@@ -31,6 +31,7 @@ class TaskForm extends Component {
     priority: '',
     dueDate: '',
     completedTasks: false,
+    pendingTasks: false,
   }
 
   toggleInCompleted = id => {
@@ -104,28 +105,49 @@ class TaskForm extends Component {
   }
 
   onToggleCompletedTasks = () => {
-    const {completedTasks} = this.state
-
     this.setState(
-      prevState => ({completedTasks: !prevState.completedTasks}, this.getCompletedTasks)
+      prevState => ({completedTasks: !prevState.completedTasks}),
+      this.getCompletedTasks,
     )
   }
 
   getCompletedTasks = () => {
     const {tasksList} = this.state
 
-    if (completedTasks) {
-      const filterCompletedTasks = tasksList.filter(
-        eachTask => eachTask.inCompleted === true,
-      )
-      this.setState({tasksList: filterCompletedTasks})
-    } else {
-      this.setState({tasksList})
-    }
+    const filterCompletedTasks = tasksList.filter(
+      eachTask => eachTask.inCompleted === true,
+    )
+    return filterCompletedTasks
+  }
+
+  onTogglePendingTasks = () => {
+    this.setState(
+      prevState => ({pendingTasks: !prevState.pendingTasks}),
+      this.getPendingTasks,
+    )
+  }
+
+  getPendingTasks = () => {
+    const {tasksList} = this.state
+
+    const filterPendingTasks = tasksList.filter(
+      eachTask => eachTask.inCompleted === false,
+    )
+    return filterPendingTasks
   }
 
   render() {
-    const {title, description, priority, dueDate, tasksList} = this.state
+    const {
+      title,
+      description,
+      priority,
+      dueDate,
+      tasksList,
+      completedTasks,
+      pendingTasks,
+    } = this.state
+    const filterCompletedTasks = this.getCompletedTasks()
+    const filterPendingTasks = this.getPendingTasks()
 
     return (
       <div className="app-container">
@@ -168,12 +190,20 @@ class TaskForm extends Component {
             <div className="filter-container">
               <ul className="filter-list">
                 <li className="filter-list-item">
-                  <button type="button completed-button" onClick={this.onToggleCompletedTasks} className="button">
+                  <button
+                    type="button"
+                    onClick={this.onToggleCompletedTasks}
+                    className="button completed-button"
+                  >
                     Completed Tasks
                   </button>
                 </li>
                 <li className="filter-list-item">
-                  <button type="button pending-button" onClick={this.onTogglePendingTasks} className="button">
+                  <button
+                    type="button"
+                    onClick={this.onTogglePendingTasks}
+                    className="button pending-button"
+                  >
                     Pending Tasks
                   </button>
                 </li>
@@ -182,15 +212,46 @@ class TaskForm extends Component {
           </div>
           <div className="tasks-container">
             <ul>
-              {tasksList.map(eachTask => (
-                <TaskItem
-                  key={eachTask.id}
-                  taskDetails={eachTask}
-                  editTask={this.editTask}
-                  deleteTask={this.deleteTask}
-                  toggleInCompleted={this.toggleInCompleted}
-                />
-              ))}
+              {completedTasks
+                ? filterCompletedTasks.map(eachTask => (
+                    <TaskItem
+                      key={eachTask.id}
+                      taskDetails={eachTask}
+                      editTask={this.editTask}
+                      deleteTask={this.deleteTask}
+                      toggleInCompleted={this.toggleInCompleted}
+                    />
+                  ))
+                : tasksList.map(eachTask => (
+                    <TaskItem
+                      key={eachTask.id}
+                      taskDetails={eachTask}
+                      editTask={this.editTask}
+                      deleteTask={this.deleteTask}
+                      toggleInCompleted={this.toggleInCompleted}
+                    />
+                  ))}
+            </ul>
+            <ul>
+              {pendingTasks
+                ? filterPendingTasks.map(eachTask => (
+                    <TaskItem
+                      key={eachTask.id}
+                      taskDetails={eachTask}
+                      editTask={this.editTask}
+                      deleteTask={this.deleteTask}
+                      toggleInCompleted={this.toggleInCompleted}
+                    />
+                  ))
+                : tasksList.map(eachTask => (
+                    <TaskItem
+                      key={eachTask.id}
+                      taskDetails={eachTask}
+                      editTask={this.editTask}
+                      deleteTask={this.deleteTask}
+                      toggleInCompleted={this.toggleInCompleted}
+                    />
+                  ))}
             </ul>
           </div>
         </div>
